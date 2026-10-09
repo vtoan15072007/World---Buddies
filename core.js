@@ -1,0 +1,12 @@
+export const normalize = value => value.trim().toLowerCase();
+export function createRound(words){return {words,index:0,lives:3,score:0,completed:[],weak:[],ended:false};}
+export function miss(round){if(round.ended)return;const id=round.words[round.index].en;if(!round.weak.includes(id))round.weak.push(id);round.lives--;if(round.lives<=0)round.ended=true;}
+export function complete(round){if(round.ended)return;round.completed.push(round.words[round.index].en);round.score+=100;round.index++;if(round.index===round.words.length)round.ended=true;}
+export function reviewList(round){return [...new Set([...round.weak,...round.words.slice(round.index).map(w=>w.en)])];}
+export const topics=[
+{id:'animals',name:'Động vật',icon:'🐻',color:'#f9dfbd',description:'Làm quen những người bạn nhỏ',words:[['cat','con mèo','🐱'],['dog','con chó','🐶'],['bird','con chim','🐦'],['fish','con cá','🐟'],['duck','con vịt','🦆'],['cow','con bò','🐮'],['pig','con lợn','🐷'],['rabbit','con thỏ','🐰'],['bear','con gấu','🐻'],['lion','con sư tử','🦁']]},
+{id:'fruit',name:'Trái cây',icon:'🍓',color:'#fbd9df',description:'Một giỏ từ mới thật ngọt ngào',words:[['apple','quả táo','🍎'],['banana','quả chuối','🍌'],['orange','quả cam','🍊'],['grape','quả nho','🍇'],['mango','quả xoài','🥭'],['lemon','quả chanh vàng','🍋'],['pear','quả lê','🍐'],['peach','quả đào','🍑'],['melon','quả dưa lưới','🍈'],['cherry','quả anh đào','🍒']]},
+{id:'school',name:'Trường học',icon:'🎒',color:'#dcdafa',description:'Khám phá lớp học thân quen',words:[['book','quyển sách','📕'],['pen','bút mực','🖊️'],['pencil','bút chì','✏️'],['bag','chiếc cặp','🎒'],['ruler','thước kẻ','📏'],['desk','bàn học','🪑'],['chair','ghế','🪑'],['school','trường học','🏫'],['clock','đồng hồ','🕒'],['notebook','vở','📓']]},
+{id:'transport',name:'Phương tiện',icon:'🚗',color:'#d5ebfb',description:'Cùng từ vựng đi khắp nơi',words:[['car','ô tô','🚗'],['bus','xe buýt','🚌'],['bike','xe đạp','🚲'],['train','tàu hỏa','🚆'],['plane','máy bay','✈️'],['boat','thuyền','⛵'],['ship','tàu thủy','🚢'],['truck','xe tải','🚚'],['taxi','xe taxi','🚕'],['rocket','tên lửa','🚀']]},
+{id:'nature',name:'Thiên nhiên',icon:'🌻',color:'#e2edbd',description:'Những điều kỳ diệu quanh mình',words:[['sun','mặt trời','☀️'],['moon','mặt trăng','🌙'],['star','ngôi sao','⭐'],['tree','cây','🌳'],['flower','bông hoa','🌼'],['leaf','chiếc lá','🍃'],['rain','mưa','🌧️'],['cloud','đám mây','☁️'],['sea','biển','🌊'],['mountain','núi','⛰️']]}
+].map(t=>({...t,words:t.words.map(([en,vi,icon])=>({en,vi,icon}))}));
